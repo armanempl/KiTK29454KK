@@ -47,7 +47,9 @@ namespace Projekt1
             MessageBox.Show("Ścieżka to: " + sciezka);
         }
 
-        //cokolwiek drugie żeby sprawdzić czy zmiany będą poprawnie przesyłane
+
+
+        //początek skryptu na szyfrowanie/deszyfrowanie
 
         public static string GetKeyString(RSAParameters publicKey)
         {
