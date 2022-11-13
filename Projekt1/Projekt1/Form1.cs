@@ -47,7 +47,7 @@ namespace Projekt1
             MessageBox.Show("Ścieżka to: " + sciezka);
         }
 
-        //cokolwiek
+        //cokolwiek drugie żeby sprawdzić czy zmiany będą poprawnie przesyłane
 
 
     }
