@@ -19,25 +19,39 @@ namespace Projekt1
 
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
+        private void PubFileSelect_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog upload = new OpenFileDialog())
             {
+                upload.Filter = "Pliki tekstowe|*.txt";
                 upload.Filter = "Wszystkie pliki|*";
-                upload.Title = "Wybierz plik";
+                upload.Title = "Wybierz plik do zaszyfrowania";
                 if (upload.ShowDialog() != DialogResult.OK) return;
                 string filePath = upload.FileName;
                 string fileName = upload.SafeFileName;
                 string filePathName = upload.FileName.Replace(upload.SafeFileName, "");
-                textBox3.Text = filePath;
+                PubFilePath.Text = filePath;
+            }
+        }
+        private void PrivFileSelect_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog upload = new OpenFileDialog())
+            {
+                upload.Filter = "Pliki tekstowe|*.txt";
+                upload.Filter = "Wszystkie pliki|*";
+                upload.Title = "Wybierz plik do zaszyfrowania";
+                if (upload.ShowDialog() != DialogResult.OK) return;
+                string filePath = upload.FileName;
+                string fileName = upload.SafeFileName;
+                string filePathName = upload.FileName.Replace(upload.SafeFileName, "");
+                PrivFilePath.Text = filePath;
             }
         }
 
         private void button2_Click(object sender, EventArgs e) //szyfruj
         {
-            string sciezka = textBox3.Text;
-            string publicKey = textBox1.Text;
+            string sciezka = PubFilePath.Text;
+            string publicKey = PubKeyPath.Text;
             if (sciezka == "")
             {
                 MessageBox.Show("Nie wybrano pliku, najpierw wskaż ścieżkę do pliku do zaszyfrowania");
@@ -50,10 +64,11 @@ namespace Projekt1
                 string publicKeyText = System.IO.File.ReadAllText(publicKey);
                 string fileText = System.IO.File.ReadAllText(sciezka);
                 string encryptedText = Encrypt(fileText, publicKeyText);
-                MessageBox.Show(encryptedText);
+                //MessageBox.Show(encryptedText);
 
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Filter = "Plik txt|*.txt";
+                saveFileDialog1.Filter = "Wszystkie pliki|*";
                 saveFileDialog1.Title = "Wybierz lokalizację zapisu zaszyfrowanego pliku";
                 saveFileDialog1.ShowDialog();
                 if (saveFileDialog1.FileName != "")
@@ -64,7 +79,7 @@ namespace Projekt1
                     }
                 }
                 MessageBox.Show("Zaszyfrowano plik \n Został zapisany w lokalizacji: \n " + saveFileDialog1.FileName);
-                System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);
+                //System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);
             }
         }
         
@@ -77,8 +92,8 @@ namespace Projekt1
 
         private void button3_Click(object sender, EventArgs e) //deszyfruj
         {
-            string sciezka = textBox3.Text;
-            string privateKey = textBox2.Text;
+            string sciezka = PrivFilePath.Text;
+            string privateKey = PrivKeyPath.Text;
             if (sciezka == "")
             {
                 MessageBox.Show("Nie wybrano pliku, najpierw wskaż ścieżkę do pliku do zaszyfrowania");
@@ -89,14 +104,16 @@ namespace Projekt1
             }
             else
             {
+                //string privateKeyText = System.IO.File.ReadAllText(privateKey);
                 string privateKeyText = System.IO.File.ReadAllText(privateKey);
                 string fileText = System.IO.File.ReadAllText(sciezka);
                 string encryptedText = Decrypt(fileText, privateKeyText);
-                MessageBox.Show(privateKeyText);
-                MessageBox.Show(fileText);
+                //MessageBox.Show(privateKeyText);
+                //MessageBox.Show(fileText);
                 MessageBox.Show(encryptedText);
                 /* SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                  saveFileDialog1.Filter = "Plik txt|*.txt";
+                saveFileDialog1.Filter = "Wszystkie pliki|*";
                  saveFileDialog1.Title = "Wybierz lokalizację zapisu klucza prywatnego";
                  saveFileDialog1.ShowDialog();
                  if (saveFileDialog1.FileName != "")
@@ -107,7 +124,7 @@ namespace Projekt1
                      }
                  }
                  MessageBox.Show("Odszyfrowano plik \n Został zapisany w lokalizacji: \n " + saveFileDialog1.FileName);
-                 System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);*/
+                 //System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);*/
             }
         }
 
@@ -119,6 +136,43 @@ namespace Projekt1
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            /*string sciezka = PubFilePath.Text;
+            string text = System.IO.File.ReadAllText(sciezka);
+            MessageBox.Show(text);*/
+            //string publicKeyText = System.IO.File.ReadAllText(PubKeyPath.Text);
+            //GetKeyString(publicKeyText);
+        }
+
+        private void PubKeyPath_Click(object sender, EventArgs e) //szyfruj wybierz plik
+        {
+            using (OpenFileDialog pubkey = new OpenFileDialog())
+            {
+                pubkey.Filter = "Wszystkie pliki|*";
+                pubkey.Title = "Wybierz plik";
+                if (pubkey.ShowDialog() != DialogResult.OK) return;
+                string filePath = pubkey.FileName;
+                string fileName = pubkey.SafeFileName;
+                string filePathName = pubkey.FileName.Replace(pubkey.SafeFileName, "");
+                PubKeyPath.Text = filePath;
+            }
+        }
+
+        private void PrivKeyPath_Click(object sender, EventArgs e) //deszyfruj wybierz plik
+        {
+            using (OpenFileDialog privkey = new OpenFileDialog())
+            {
+                privkey.Filter = "Wszystkie pliki|*";
+                privkey.Title = "Wybierz plik";
+                if (privkey.ShowDialog() != DialogResult.OK) return;
+                string filePath = privkey.FileName;
+                string fileName = privkey.SafeFileName;
+                string filePathName = privkey.FileName.Replace(privkey.SafeFileName, "");
+                PrivKeyPath.Text = filePath;
+            }
         }
 
         private void button4_Click(object sender, EventArgs e) //generuj klucz publiczny
@@ -133,13 +187,11 @@ namespace Projekt1
             saveFileDialog1.ShowDialog();
             if (saveFileDialog1.FileName != "")
             {
-            using (System.IO.FileStream fs = System.IO.File.Create(saveFileDialog1.FileName))
+                using (System.IO.FileStream fs = System.IO.File.Create(saveFileDialog1.FileName))
                 {
                     AddText(fs, publicKeyString);
                 }
             }
-         
-
 
             MessageBox.Show("Wygenerowano klucz publiczny \n Został zapisany w pliku tekstowym w lokalizacji: \n " + saveFileDialog1.FileName);
             System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);
@@ -168,48 +220,9 @@ namespace Projekt1
                 {
                     AddText(fs, privateKeyString);
                 }
-
-
-
             }
-
             MessageBox.Show("Wygenerowano klucz prywatny \n Został zapisany w pliku XML w lokalizacji: \n " + saveFileDialog1.FileName);
             System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            string sciezka = textBox3.Text;
-            string text = System.IO.File.ReadAllText(sciezka);
-            MessageBox.Show(text);
-        }
-
-        private void button7_Click(object sender, EventArgs e) //szyfruj wybierz plik
-        {
-            using (OpenFileDialog pubkey = new OpenFileDialog())
-            {
-                pubkey.Filter = "Wszystkie pliki|*";
-                pubkey.Title = "Wybierz plik";
-                if (pubkey.ShowDialog() != DialogResult.OK) return;
-                string filePath = pubkey.FileName;
-                string fileName = pubkey.SafeFileName;
-                string filePathName = pubkey.FileName.Replace(pubkey.SafeFileName, "");
-                textBox1.Text = filePath;
-            }
-        }
-
-        private void button8_Click(object sender, EventArgs e) //deszyfruj wybierz plik
-        {
-            using (OpenFileDialog privkey = new OpenFileDialog())
-            {
-                privkey.Filter = "Wszystkie pliki|*";
-                privkey.Title = "Wybierz plik";
-                if (privkey.ShowDialog() != DialogResult.OK) return;
-                string filePath = privkey.FileName;
-                string fileName = privkey.SafeFileName;
-                string filePathName = privkey.FileName.Replace(privkey.SafeFileName, "");
-                textBox2.Text = filePath;
-            }
         }
 
         //początek skryptu na szyfrowanie/deszyfrowanie
@@ -245,8 +258,8 @@ namespace Projekt1
 
         public static string Decrypt(string textToDecrypt, string privateKeyString)
         {
-            var bytesToDescrypt = Encoding.UTF8.GetBytes(textToDecrypt);
-
+            var bytesToDecrypt = Encoding.UTF8.GetBytes(textToDecrypt);
+            
             using (var rsa = new RSACryptoServiceProvider(2048))
             {
                 try
