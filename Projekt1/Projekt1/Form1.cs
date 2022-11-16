@@ -67,8 +67,9 @@ namespace Projekt1
                 //MessageBox.Show(encryptedText);
 
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.Filter = "Plik txt|*.txt";
-                saveFileDialog1.Filter = "Wszystkie pliki|*";
+                saveFileDialog1.FilterIndex = 2;
+                saveFileDialog1.Filter = "Wszystkie pliki|*|Plik txt|*.txt";
+                //saveFileDialog1.Filter = "Wszystkie pliki|*";
                 saveFileDialog1.Title = "Wybierz lokalizację zapisu zaszyfrowanego pliku";
                 saveFileDialog1.ShowDialog();
                 if (saveFileDialog1.FileName != "")
@@ -110,11 +111,12 @@ namespace Projekt1
                 string encryptedText = Decrypt(fileText, privateKeyText);
                 //MessageBox.Show(privateKeyText);
                 //MessageBox.Show(fileText);
-                MessageBox.Show(encryptedText);
-                /* SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                 saveFileDialog1.Filter = "Plik txt|*.txt";
-                saveFileDialog1.Filter = "Wszystkie pliki|*";
-                 saveFileDialog1.Title = "Wybierz lokalizację zapisu klucza prywatnego";
+                //MessageBox.Show(encryptedText);
+                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.FilterIndex = 2;
+                saveFileDialog1.Filter = "Wszystkie pliki| *| Plik txt | *.txt";
+                //saveFileDialog1.Filter = "Wszystkie pliki|*";
+                 saveFileDialog1.Title = "Wybierz lokalizację zapisu odszyfrowanego pliku";
                  saveFileDialog1.ShowDialog();
                  if (saveFileDialog1.FileName != "")
                  {
@@ -124,7 +126,7 @@ namespace Projekt1
                      }
                  }
                  MessageBox.Show("Odszyfrowano plik \n Został zapisany w lokalizacji: \n " + saveFileDialog1.FileName);
-                 //System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);*/
+                 //System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);
             }
         }
 
@@ -175,7 +177,7 @@ namespace Projekt1
             }
         }
 
-        private void button4_Click(object sender, EventArgs e) //generuj klucz publiczny
+        private void button4_Click(object sender, EventArgs e) //generuj klucz publiczny/prywatny
         {
             var cryptoServiceProvider = new RSACryptoServiceProvider(2048); //2048 - Długość klucza
             var publicKey = cryptoServiceProvider.ExportParameters(false); //Generowanie klucza publiczny
@@ -195,6 +197,27 @@ namespace Projekt1
 
             MessageBox.Show("Wygenerowano klucz publiczny \n Został zapisany w pliku tekstowym w lokalizacji: \n " + saveFileDialog1.FileName);
             System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);
+
+            //var cryptoServiceProvider = new RSACryptoServiceProvider(2048); //2048 - Długość klucza
+            var privateKey = cryptoServiceProvider.ExportParameters(true); //Generowanie klucza prywatnego
+            string privateKeyString = GetKeyString(privateKey);
+            SaveFileDialog saveFileDialog2 = new SaveFileDialog();
+            saveFileDialog2.Filter = "Plik XML|*.xml";
+            saveFileDialog2.Title = "Wybierz lokalizację zapisu klucza publicznego";
+            saveFileDialog2.FileName = "privatekey";
+            saveFileDialog2.ShowDialog();
+            if (saveFileDialog2.FileName != "")
+            {
+                //System.IO.FileStream saveFile = (System.IO.FileStream)saveFileDialog1.OpenFile();
+                using (System.IO.FileStream fs = System.IO.File.Create(saveFileDialog2.FileName))
+                {
+                    AddText(fs, privateKeyString);
+                }
+            }
+            MessageBox.Show("Wygenerowano klucz prywatny \n Został zapisany w pliku XML w lokalizacji: \n " + saveFileDialog2.FileName);
+            System.Diagnostics.Process.Start("explorer.exe", saveFileDialog2.FileName);
+
+
         }
 
         public static void AddText(System.IO.FileStream fs, string value)
@@ -205,24 +228,7 @@ namespace Projekt1
 
         private void button5_Click(object sender, EventArgs e) //generuj klucz prywatny
         {
-            var cryptoServiceProvider = new RSACryptoServiceProvider(2048); //2048 - Długość klucza
-            var privateKey = cryptoServiceProvider.ExportParameters(true); //Generowanie klucza prywatnego
-            string privateKeyString = GetKeyString(privateKey);
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "Plik XML|*.xml";
-            saveFileDialog1.Title = "Wybierz lokalizację zapisu klucza publicznego";
-            saveFileDialog1.FileName = "privatekey";
-            saveFileDialog1.ShowDialog();
-            if (saveFileDialog1.FileName != "")
-            {
-                //System.IO.FileStream saveFile = (System.IO.FileStream)saveFileDialog1.OpenFile();
-                using (System.IO.FileStream fs = System.IO.File.Create(saveFileDialog1.FileName))
-                {
-                    AddText(fs, privateKeyString);
-                }
-            }
-            MessageBox.Show("Wygenerowano klucz prywatny \n Został zapisany w pliku XML w lokalizacji: \n " + saveFileDialog1.FileName);
-            System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);
+
         }
 
         //początek skryptu na szyfrowanie/deszyfrowanie
@@ -267,11 +273,10 @@ namespace Projekt1
 
                     // server decrypting data with private key                    
                     rsa.FromXmlString(privateKeyString);
-
                     var resultBytes = Convert.FromBase64String(textToDecrypt);
                     var decryptedBytes = rsa.Decrypt(resultBytes, true);
                     var decryptedData = Encoding.UTF8.GetString(decryptedBytes);
-                    return decryptedData.ToString();
+                    return decryptedData;
                 }
                 finally
                 {
