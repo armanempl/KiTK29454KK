@@ -80,7 +80,7 @@ namespace Projekt1
                     }
                 }
                 MessageBox.Show("Zaszyfrowano plik \n Został zapisany w lokalizacji: \n " + saveFileDialog1.FileName);
-                //System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);
+                System.Diagnostics.Process.Start("notepad.exe", saveFileDialog1.FileName);
             }
         }
         
@@ -126,7 +126,7 @@ namespace Projekt1
                      }
                  }
                  MessageBox.Show("Odszyfrowano plik \n Został zapisany w lokalizacji: \n " + saveFileDialog1.FileName);
-                 //System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);
+                System.Diagnostics.Process.Start("notepad.exe", saveFileDialog1.FileName);
             }
         }
 
