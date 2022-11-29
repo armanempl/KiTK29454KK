@@ -52,6 +52,8 @@ namespace Projekt1
             this.PrivFilePath = new System.Windows.Forms.TextBox();
             this.PrivFileSelect = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.privpathholder = new System.Windows.Forms.TextBox();
+            this.pubpathholder = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -221,12 +223,30 @@ namespace Projekt1
             this.label6.TabIndex = 22;
             this.label6.Text = " ";
             // 
+            // privpathholder
+            // 
+            this.privpathholder.Location = new System.Drawing.Point(458, 135);
+            this.privpathholder.Name = "privpathholder";
+            this.privpathholder.Size = new System.Drawing.Size(38, 23);
+            this.privpathholder.TabIndex = 23;
+            this.privpathholder.Visible = false;
+            // 
+            // pubpathholder
+            // 
+            this.pubpathholder.Location = new System.Drawing.Point(303, 135);
+            this.pubpathholder.Name = "pubpathholder";
+            this.pubpathholder.Size = new System.Drawing.Size(59, 23);
+            this.pubpathholder.TabIndex = 24;
+            this.pubpathholder.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSeaGreen;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pubpathholder);
+            this.Controls.Add(this.privpathholder);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.PrivFileSelect);
             this.Controls.Add(this.PrivFilePath);
@@ -245,7 +265,7 @@ namespace Projekt1
             this.Controls.Add(this.buttonEncrypt);
             this.Controls.Add(this.PubFileSelect);
             this.Name = "Form1";
-            this.Text = "deSZYfrator";
+            this.Text = "deSZYfrator v0.5.1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -275,6 +295,8 @@ namespace Projekt1
         private System.Windows.Forms.TextBox PrivFilePath;
         protected System.Windows.Forms.Button PrivFileSelect;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox privpathholder;
+        private System.Windows.Forms.TextBox pubpathholder;
     }
 }
 

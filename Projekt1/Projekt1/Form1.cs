@@ -8,14 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
+using System.IO;
+
 
 namespace Projekt1
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
+
 
         }
 
@@ -31,6 +35,7 @@ namespace Projekt1
                 string fileName = upload.SafeFileName;
                 string filePathName = upload.FileName.Replace(upload.SafeFileName, "");
                 PubFilePath.Text = filePath;
+                pubpathholder.Text = filePathName;
             }
         }
         private void PrivFileSelect_Click(object sender, EventArgs e)
@@ -45,6 +50,7 @@ namespace Projekt1
                 string fileName = upload.SafeFileName;
                 string filePathName = upload.FileName.Replace(upload.SafeFileName, "");
                 PrivFilePath.Text = filePath;
+                privpathholder.Text = filePathName;
             }
         }
 
@@ -61,26 +67,21 @@ namespace Projekt1
                 MessageBox.Show("Nie wybrano pliku klucza publicznego, spróbuj ponownie");
             } else
             {
-                string publicKeyText = System.IO.File.ReadAllText(publicKey);
-                string fileText = System.IO.File.ReadAllText(sciezka);
-                string encryptedText = Encrypt(fileText, publicKeyText);
-                //MessageBox.Show(encryptedText);
+                string publicKeyText = File.ReadAllText(publicKey);
+                string fileText = File.ReadAllText(sciezka);
 
-                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+                Encrypt(sciezka, publicKeyText);
+                //string encryptedText = Encrypt(fileText, publicKeyText);
+
+                /*SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.FilterIndex = 2;
                 saveFileDialog1.Filter = "Wszystkie pliki|*|Plik txt|*.txt";
                 //saveFileDialog1.Filter = "Wszystkie pliki|*";
                 saveFileDialog1.Title = "Wybierz lokalizację zapisu zaszyfrowanego pliku";
-                saveFileDialog1.ShowDialog();
-                if (saveFileDialog1.FileName != "")
-                {
-                    using (System.IO.FileStream fs = System.IO.File.Create(saveFileDialog1.FileName))
-                    {
-                        AddText(fs, encryptedText);
-                    }
-                }
-                MessageBox.Show("Zaszyfrowano plik \n Został zapisany w lokalizacji: \n " + saveFileDialog1.FileName);
-                //System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);
+                saveFileDialog1.ShowDialog();*/
+
+                MessageBox.Show("Zaszyfrowano plik \n Został zapisany w lokalizacji: \n " + sciezka + ".enc");
             }
         }
         
@@ -95,6 +96,7 @@ namespace Projekt1
         {
             string sciezka = PrivFilePath.Text;
             string privateKey = PrivKeyPath.Text;
+
             if (sciezka == "")
             {
                 MessageBox.Show("Nie wybrano pliku, najpierw wskaż ścieżkę do pliku do zaszyfrowania");
@@ -106,13 +108,13 @@ namespace Projekt1
             else
             {
                 //string privateKeyText = System.IO.File.ReadAllText(privateKey);
-                string privateKeyText = System.IO.File.ReadAllText(privateKey);
-                string fileText = System.IO.File.ReadAllText(sciezka);
-                string encryptedText = Decrypt(fileText, privateKeyText);
+                string privateKeyText = File.ReadAllText(privateKey);
+                string fileText = File.ReadAllText(sciezka);
+                Decrypt(sciezka, privateKeyText);
                 //MessageBox.Show(privateKeyText);
                 //MessageBox.Show(fileText);
                 //MessageBox.Show(encryptedText);
-                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                /* SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.FilterIndex = 2;
                 saveFileDialog1.Filter = "Wszystkie pliki| *| Plik txt | *.txt";
                 //saveFileDialog1.Filter = "Wszystkie pliki|*";
@@ -120,12 +122,12 @@ namespace Projekt1
                  saveFileDialog1.ShowDialog();
                  if (saveFileDialog1.FileName != "")
                  {
-                     using (System.IO.FileStream fs = System.IO.File.Create(saveFileDialog1.FileName))
+                     using (FileStream fs = File.Create(saveFileDialog1.FileName))
                      {
                          AddText(fs, encryptedText);
                      }
-                 }
-                 MessageBox.Show("Odszyfrowano plik \n Został zapisany w lokalizacji: \n " + saveFileDialog1.FileName);
+                 }*/
+                 MessageBox.Show("Odszyfrowano plik \n Został zapisany w lokalizacji: \n " + Path.ChangeExtension(sciezka, ""));
                  //System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);
             }
         }
@@ -236,55 +238,122 @@ namespace Projekt1
         public static string GetKeyString(RSAParameters publicKey)
         {
 
-            var stringWriter = new System.IO.StringWriter();
+            var stringWriter = new StringWriter();
             var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
             xmlSerializer.Serialize(stringWriter, publicKey);
             return stringWriter.ToString();
         }
 
-        public static string Encrypt(string textToEncrypt, string publicKeyString)
+        public static string SerializeText<T>(T textToSerialize)
         {
-            var bytesToEncrypt = Encoding.UTF8.GetBytes(textToEncrypt);
+
+            var stringWriter = new StringWriter();
+            var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(string));
+            xmlSerializer.Serialize(stringWriter, textToSerialize);
+            return stringWriter.ToString();
+        }
+
+        public void Encrypt(string sciezka, string publicKeyString)
+        {
+
+            FileInfo FileEnc = new FileInfo(sciezka);
+            string textEncrypted = "";
+            string encryptedFilePath = Path.Combine(sciezka + ".enc");
+            //var bytesToEncrypt = Encoding.UTF8.GetBytes(textToEncrypt);
 
             using (var rsa = new RSACryptoServiceProvider(2048))
             {
+            rsa.FromXmlString(publicKeyString.ToString());
+                int ChunkSizeMax = ((rsa.KeySize - 384) / 8) + 6;
+                int tempChunkRead = (int)FileEnc.Length;
+                int tempChunkRead2 = 0;
+                byte[] FileEncrypted = new byte[tempChunkRead];
                 try
                 {
-                    rsa.FromXmlString(publicKeyString.ToString());
-                    var encryptedData = rsa.Encrypt(bytesToEncrypt, true);
-                    var base64Encrypted = Convert.ToBase64String(encryptedData);
-                    return base64Encrypted;
+                    using (FileStream Stream = new FileStream(sciezka, FileMode.Open, FileAccess.Read))
+                    {
+                        byte[] byters = new byte[ChunkSizeMax];
+
+                        while (tempChunkRead > 0)
+                        {
+                            int x = Stream.Read(byters, 0, ChunkSizeMax);
+                            if (x < ChunkSizeMax)
+                            {
+                                byte[] temp = new byte[x];
+                                Array.Copy(byters, temp, x);
+                                byters = temp;
+                            }
+                            if (x == 0)
+                            {
+                                break;
+                            }
+                            byte[] BytesToEncrypt = new byte[214];
+                            BytesToEncrypt = rsa.Encrypt(byters, true);
+                            var base64Encrypted = Convert.ToBase64String(BytesToEncrypt) + Environment.NewLine;
+                            textEncrypted += base64Encrypted;
+                            tempChunkRead -= x;
+                            tempChunkRead2 += x;
+                        }
+                        File.WriteAllText(encryptedFilePath, textEncrypted, Encoding.UTF8);
+                    }
+                    
+
                 }
-                finally
+
+                catch (Exception er)
                 {
-                    rsa.PersistKeyInCsp = false;
+                    MessageBox.Show("Wystąpił błąd: \n" + er.Message);
+                    return;
                 }
             }
         }
 
-        public static string Decrypt(string textToDecrypt, string privateKeyString)
+        public void Decrypt(string sciezka, string privateKeyString)
         {
-            var bytesToDecrypt = Encoding.UTF8.GetBytes(textToDecrypt);
-            
-            using (var rsa = new RSACryptoServiceProvider(2048))
+            //var bytesToDecrypt = Encoding.UTF8.GetBytes(textToDecrypt);
+            FileInfo FileEnc = new FileInfo(sciezka);
+            string filepath = privpathholder.Text;
+            //string textEncrypted = "";
+            string encryptedFilePath = Path.Combine(filepath + Path.ChangeExtension(FileEnc.Name, ""));
+            byte[] tempbyte = null;
+            try {
+                using (var rsa = new RSACryptoServiceProvider(2048))
+                {
+                    rsa.FromXmlString(privateKeyString.ToString());
+                    const Int32 SizeBuff = 128;
+                    using (Stream fileToOpen = File.OpenRead(sciezka))
+                    {
+                        using (var fileToOpenRead = new StreamReader(fileToOpen, Encoding.UTF8, true, SizeBuff))
+                        {
+                            String line;
+                            while ((line = fileToOpenRead.ReadLine()) != null)
+                            {
+                                byte[] resultBytes = Convert.FromBase64String(line);
+                                byte[] decryptedBytes = rsa.Decrypt(resultBytes, true);
+                                if (tempbyte == null)
+                                {
+                                    tempbyte = decryptedBytes;
+                                } else
+                                {
+                                    var temp1 = tempbyte;
+                                    var temp2 = decryptedBytes;
+                                    tempbyte = new byte[temp1.Length + temp2.Length];
+                                    Buffer.BlockCopy(temp1, 0, tempbyte, 0, temp1.Length);
+                                    Buffer.BlockCopy(temp2, 0, tempbyte, temp1.Length, temp2.Length);
+                                }
+                            }
+                        }
+                        fileToOpen.Close();
+                    }
+                    File.WriteAllBytes(encryptedFilePath, tempbyte);
+
+                }
+            } catch (Exception er)
             {
-                try
-                {
-
-                    // server decrypting data with private key                    
-                    rsa.FromXmlString(privateKeyString);
-                    var resultBytes = Convert.FromBase64String(textToDecrypt);
-                    var decryptedBytes = rsa.Decrypt(resultBytes, true);
-                    var decryptedData = Encoding.UTF8.GetString(decryptedBytes);
-                    return decryptedData;
-                }
-                finally
-                {
-                    rsa.PersistKeyInCsp = false;
-                }
+                MessageBox.Show("Wystąpił błąd: \n" + er.Message);
+                return;
             }
-        }
 
-
+}
     }
 }
