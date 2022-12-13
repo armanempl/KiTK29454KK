@@ -1,0 +1,16 @@
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\bin\Debug\netcoreapp3.1\AES.exe
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\bin\Debug\netcoreapp3.1\AES.deps.json
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\bin\Debug\netcoreapp3.1\AES.runtimeconfig.json
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\bin\Debug\netcoreapp3.1\AES.runtimeconfig.dev.json
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\bin\Debug\netcoreapp3.1\AES.dll
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\bin\Debug\netcoreapp3.1\AES.pdb
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\obj\Debug\netcoreapp3.1\AES.csproj.AssemblyReference.cache
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\obj\Debug\netcoreapp3.1\AES.Form1.resources
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\obj\Debug\netcoreapp3.1\AES.csproj.GenerateResource.cache
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\obj\Debug\netcoreapp3.1\AES.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\obj\Debug\netcoreapp3.1\AES.AssemblyInfoInputs.cache
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\obj\Debug\netcoreapp3.1\AES.AssemblyInfo.cs
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\obj\Debug\netcoreapp3.1\AES.csproj.CoreCompileInputs.cache
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\obj\Debug\netcoreapp3.1\AES.dll
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\obj\Debug\netcoreapp3.1\AES.pdb
+C:\Users\Konrad\source\repos\KiTK29454KK\AES\AES\obj\Debug\netcoreapp3.1\AES.genruntimeconfig.cache
