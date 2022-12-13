@@ -162,7 +162,7 @@ namespace AES
             this.Controls.Add(this.EncryptButton);
             this.Controls.Add(this.GenerateKeyIV);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "AESzyfrator v0.0.2";
             this.ResumeLayout(false);
             this.PerformLayout();
 

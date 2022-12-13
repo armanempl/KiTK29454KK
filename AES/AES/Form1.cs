@@ -30,8 +30,9 @@ namespace AES
                 rijndael.GenerateIV();
                 AESKey = rijndael.Key;
                 AESIV = rijndael.IV;
-                KeyText.Text = Encoding.UTF8.GetString(AESKey);
-                IVText.Text = Encoding.UTF8.GetString(AESIV);
+                KeyText.Text = Convert.ToBase64String(AESKey);
+                IVText.Text = Convert.ToBase64String(AESIV);
+
             }
 
         }
@@ -88,7 +89,7 @@ namespace AES
         {
             byte[] enc = AESEncrypt(UserInput.Text, AESKey, AESIV);
             encryptedText = enc;
-            AESOutput.Text = Encoding.UTF8.GetString(enc);
+            AESOutput.Text = Convert.ToBase64String(enc);
         }
 
         private void DecryptButton_Click(object sender, EventArgs e)
@@ -96,6 +97,11 @@ namespace AES
             string dec = AESDecrypt(encryptedText, AESKey, AESIV);
             decryptedText = dec;
             UserInput.Text = dec;
+        }
+        public static void AddText(FileStream fs, string value)
+        {
+            byte[] info = new UTF8Encoding(true).GetBytes(value);
+            fs.Write(info, 0, info.Length);
         }
     }
 }
