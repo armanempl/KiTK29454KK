@@ -8,20 +8,25 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Konrad\\.nuget\\packages\\": {}
+    "C:\\Users\\Konrad\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Konrad\\source\\repos\\KiTK29454KK\\Projekt1\\Projekt1\\Projekt1.csproj",
+      "projectUniqueName": "C:\\Users\\Konrad\\Source\\Repos\\KiTK29454KKP1\\Projekt1\\Projekt1\\Projekt1.csproj",
       "projectName": "Projekt1",
-      "projectPath": "C:\\Users\\Konrad\\source\\repos\\KiTK29454KK\\Projekt1\\Projekt1\\Projekt1.csproj",
+      "projectPath": "C:\\Users\\Konrad\\Source\\Repos\\KiTK29454KKP1\\Projekt1\\Projekt1\\Projekt1.csproj",
       "packagesPath": "C:\\Users\\Konrad\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Konrad\\source\\repos\\KiTK29454KK\\Projekt1\\Projekt1\\obj\\",
+      "outputPath": "C:\\Users\\Konrad\\Source\\Repos\\KiTK29454KKP1\\Projekt1\\Projekt1\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
         "C:\\Users\\Konrad\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -55,12 +60,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[3.1.23, 3.1.23]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
@@ -69,7 +68,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
