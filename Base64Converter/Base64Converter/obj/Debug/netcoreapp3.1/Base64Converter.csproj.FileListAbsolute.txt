@@ -1,0 +1,16 @@
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\bin\Debug\netcoreapp3.1\Base64Converter.exe
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\bin\Debug\netcoreapp3.1\Base64Converter.deps.json
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\bin\Debug\netcoreapp3.1\Base64Converter.runtimeconfig.json
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\bin\Debug\netcoreapp3.1\Base64Converter.runtimeconfig.dev.json
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\bin\Debug\netcoreapp3.1\Base64Converter.dll
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\bin\Debug\netcoreapp3.1\Base64Converter.pdb
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\obj\Debug\netcoreapp3.1\Base64Converter.csproj.AssemblyReference.cache
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\obj\Debug\netcoreapp3.1\Base64Converter.Form1.resources
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\obj\Debug\netcoreapp3.1\Base64Converter.csproj.GenerateResource.cache
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\obj\Debug\netcoreapp3.1\Base64Converter.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\obj\Debug\netcoreapp3.1\Base64Converter.AssemblyInfoInputs.cache
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\obj\Debug\netcoreapp3.1\Base64Converter.AssemblyInfo.cs
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\obj\Debug\netcoreapp3.1\Base64Converter.csproj.CoreCompileInputs.cache
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\obj\Debug\netcoreapp3.1\Base64Converter.dll
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\obj\Debug\netcoreapp3.1\Base64Converter.pdb
+C:\Users\Konrad\source\repos\KiTK29454KK\Base64Converter\Base64Converter\obj\Debug\netcoreapp3.1\Base64Converter.genruntimeconfig.cache
