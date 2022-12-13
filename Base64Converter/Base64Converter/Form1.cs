@@ -43,7 +43,6 @@ namespace Base64Converter
                  SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.FilterIndex = 2;
                 saveFileDialog1.Filter = "Wszystkie pliki| *| Plik txt | *.txt";
-                //saveFileDialog1.Filter = "Wszystkie pliki|*";
                  saveFileDialog1.Title = "Wybierz lokalizację zapisu przekonwertowanego tekstu";
                  saveFileDialog1.ShowDialog();
                  if (saveFileDialog1.FileName != "")
@@ -67,7 +66,7 @@ namespace Base64Converter
             else
             {
                 string B64Input = Base64Output.Text;
-                //byte[] bytes2 = Encoding.UTF8.GetBytes(B64Input);
+
                 byte[] output = Base64ConverterMethods.FromBase64Converter(B64Input);
                 string sOutput = Encoding.UTF8.GetString(output);
                 UserText.Text = sOutput;
