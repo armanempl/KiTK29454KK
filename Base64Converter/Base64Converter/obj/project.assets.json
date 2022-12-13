@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Konrad\\source\\repos\\KiTK29454KK\\Projekt1\\Projekt1\\Projekt1.csproj",
-      "projectName": "Projekt1",
-      "projectPath": "C:\\Users\\Konrad\\source\\repos\\KiTK29454KK\\Projekt1\\Projekt1\\Projekt1.csproj",
+      "projectUniqueName": "C:\\Users\\Konrad\\source\\repos\\KiTK29454KK\\Base64Converter\\Base64Converter\\Base64Converter.csproj",
+      "projectName": "Base64Converter",
+      "projectPath": "C:\\Users\\Konrad\\source\\repos\\KiTK29454KK\\Base64Converter\\Base64Converter\\Base64Converter.csproj",
       "packagesPath": "C:\\Users\\Konrad\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Konrad\\source\\repos\\KiTK29454KK\\Projekt1\\Projekt1\\obj\\",
+      "outputPath": "C:\\Users\\Konrad\\source\\repos\\KiTK29454KK\\Base64Converter\\Base64Converter\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Konrad\\AppData\\Roaming\\NuGet\\NuGet.Config",

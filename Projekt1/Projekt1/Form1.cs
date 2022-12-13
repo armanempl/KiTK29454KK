@@ -65,7 +65,8 @@ namespace Projekt1
             else if (publicKey == "")
             {
                 MessageBox.Show("Nie wybrano pliku klucza publicznego, spróbuj ponownie");
-            } else
+            }
+            else
             {
                 string publicKeyText = File.ReadAllText(publicKey);
                 string fileText = File.ReadAllText(sciezka);
@@ -84,7 +85,7 @@ namespace Projekt1
                 MessageBox.Show("Zaszyfrowano plik \n Został zapisany w lokalizacji: \n " + sciezka + ".enc");
             }
         }
-        
+
 
 
         private void label3_Click(object sender, EventArgs e)
@@ -127,8 +128,8 @@ namespace Projekt1
                          AddText(fs, encryptedText);
                      }
                  }*/
-                 MessageBox.Show("Odszyfrowano plik \n Został zapisany w lokalizacji: \n " + Path.ChangeExtension(sciezka, ""));
-                 //System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);
+                MessageBox.Show("Odszyfrowano plik \n Został zapisany w lokalizacji: \n " + Path.ChangeExtension(sciezka, ""));
+                //System.Diagnostics.Process.Start("explorer.exe", saveFileDialog1.FileName);
             }
         }
 
@@ -263,7 +264,7 @@ namespace Projekt1
 
             using (var rsa = new RSACryptoServiceProvider(2048))
             {
-            rsa.FromXmlString(publicKeyString.ToString());
+                rsa.FromXmlString(publicKeyString.ToString());
                 int ChunkSizeMax = ((rsa.KeySize - 384) / 8) + 6;
                 int tempChunkRead = (int)FileEnc.Length;
                 int tempChunkRead2 = 0;
@@ -296,7 +297,7 @@ namespace Projekt1
                         }
                         File.WriteAllText(encryptedFilePath, textEncrypted, Encoding.UTF8);
                     }
-                    
+
 
                 }
 
@@ -316,7 +317,8 @@ namespace Projekt1
             //string textEncrypted = "";
             string encryptedFilePath = Path.Combine(filepath + Path.ChangeExtension(FileEnc.Name, ""));
             byte[] tempbyte = null;
-            try {
+            try
+            {
                 using (var rsa = new RSACryptoServiceProvider(2048))
                 {
                     rsa.FromXmlString(privateKeyString.ToString());
@@ -333,7 +335,8 @@ namespace Projekt1
                                 if (tempbyte == null)
                                 {
                                     tempbyte = decryptedBytes;
-                                } else
+                                }
+                                else
                                 {
                                     var temp1 = tempbyte;
                                     var temp2 = decryptedBytes;
@@ -348,12 +351,13 @@ namespace Projekt1
                     File.WriteAllBytes(encryptedFilePath, tempbyte);
 
                 }
-            } catch (Exception er)
+            }
+            catch (Exception er)
             {
                 MessageBox.Show("Wystąpił błąd: \n" + er.Message);
                 return;
             }
 
-}
+        }
     }
 }

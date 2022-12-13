@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "qUUgDjjT2TIPzsXIMXcxDZSzYnf+C02hpYgGeRxxlZC6j5VYWA9MMkQ1l6wj3CyY4T4532ChwY5Z1neMdzBcAA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Konrad\\source\\repos\\KiTK29454KK\\Base64Converter\\Base64Converter\\Base64Converter.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Konrad\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.23\\microsoft.netcore.app.host.win-x64.3.1.23.nupkg.sha512"
+  ],
+  "logs": []
+}
