@@ -87,16 +87,35 @@ namespace AES
 
         private void EncryptButton_Click(object sender, EventArgs e)
         {
-            byte[] enc = AESEncrypt(UserInput.Text, AESKey, AESIV);
-            encryptedText = enc;
-            AESOutput.Text = Convert.ToBase64String(enc);
+            if (KeyText.Text == "" || IVText.Text == "")
+            {
+                MessageBox.Show("Nie wygenerowano klucza i wektora inicjującego, spróbuj ponownie");
+            }
+            else if (UserInput.Text == "")
+            {
+                MessageBox.Show("Nie wprowadzono tekstu do zaszyfrowania, spróbuj ponownie");
+            } else
+            {
+                byte[] enc = AESEncrypt(UserInput.Text, AESKey, AESIV);
+                encryptedText = enc;
+                AESOutput.Text = Convert.ToBase64String(enc);
+            }
         }
 
         private void DecryptButton_Click(object sender, EventArgs e)
         {
+            if (KeyText.Text == "" || IVText.Text == "")
+            {
+                MessageBox.Show("Nie wygenerowano klucza i wektora inicjującego, spróbuj ponownie");
+            }
+            else if (AESOutput.Text == "")
+            {
+                MessageBox.Show("Nie wprowadzono ciągu znaków do odszyfrowania, spróbuj ponownie");
+            } else { 
             string dec = AESDecrypt(encryptedText, AESKey, AESIV);
             decryptedText = dec;
             UserInput.Text = dec;
+        }
         }
         public static void AddText(FileStream fs, string value)
         {
