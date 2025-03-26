@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Kurs walut";
+}
+
+<!--div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>-->
+
+@model List<ExchangeRateModel>
+<div class="list-group">
+    @foreach (var rate in Model)
+    {
+        <button class="list-group-item list-group-item-action" onclick="loadChart('@rate.Code'); scrollToChart();">
+            <span>@rate.Currency (@rate.Code)</span> <span class="waluta" style="font-weight: 500;">@rate.Mid</span>
+        </button>
+    }
+</div>
+<div class="chart">
+<canvas id="exchangeRateChart" width="400" height="200"></canvas>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    async function loadChart(currencyCode) {
+        const response = await fetch(`/ExchangeRate/GetHistoricalRates?code=${currencyCode}`);
+        const data = await response.json();
+        const dates = data.map(d => d.date);
+        const values = data.map(d => d.mid);
+
+
+        const ctx = document.getElementById('exchangeRateChart').getContext('2d');
+        if (window.myChart) window.myChart.destroy();
+
+        window.myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: `Kurs ${currencyCode}`,
+                    data: values,
+                    borderColor: 'blue',
+                    fill: false
+                }]
+            }
+        });
+    }
+
+    function scrollToChart() {
+        document.getElementById('exchangeRateChart').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
